@@ -1372,5 +1372,18 @@
         </style>
         @endif
     </head>
-    <body></body>
+    <body>
+        <h1 id="status">Normal</h1>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                window.Echo.channel("application-status").listen(
+                    ".application-status-updated",
+                    (event) => {
+                        document.getElementById("status").innerHTML =
+                            event.status;
+                    }
+                );
+            });
+        </script>
+    </body>
 </html>
