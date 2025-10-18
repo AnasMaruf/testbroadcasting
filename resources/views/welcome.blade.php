@@ -1373,14 +1373,29 @@
         @endif
     </head>
     <body>
-        <h1 id="status">Normal</h1>
+        <h1 id="status">Status Order:</h1>
+        <h2 id="orderId"></h2>
+        <h2 id="orderStatus"></h2>
         <script>
+            // document.addEventListener("DOMContentLoaded", function () {
+            //     window.Echo.channel("application-status").listen(
+            //         ".application-status-updated",
+            //         (event) => {
+            //             document.getElementById("status").innerHTML =
+            //                 event.status;
+            //         }
+            //     );
+            // });
             document.addEventListener("DOMContentLoaded", function () {
-                window.Echo.channel("application-status").listen(
-                    ".application-status-updated",
-                    (event) => {
-                        document.getElementById("status").innerHTML =
-                            event.status;
+                window.Echo.private("order.1").listen(
+                    "OrderStatusUpdated",
+                    function (event) {
+                        console.log("test");
+
+                        document.getElementById("orderId").innerHTML =
+                            "Order ID: " + event.orderId;
+                        document.getElementById("orderStatus").innerHTML =
+                            "Status: " + event.status;
                     }
                 );
             });
